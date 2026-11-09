@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 96" fill="none">
+  <!-- Faixas onduladas oficiais multicoloridas da Prefeitura de Quiterianópolis -->
+  <g transform="translate(8, 8) scale(0.95)">
+    <path d="M24 12 L46 3 L50 11 L28 20 Z" fill="#009FE3"/>
+    <path d="M6 30 Q30 19 52 13 L55 21 Q33 27 9 38 Z" fill="#009FE3"/>
+    <path d="M5 42 Q34 28 66 23 L67 31 Q37 36 8 50 Z" fill="#FFD000"/>
+    <path d="M6 54 Q36 40 64 36 L65 44 Q38 48 9 62 Z" fill="#FFD000"/>
+    <path d="M11 65 Q36 53 64 48 L65 56 Q39 61 14 73 Z" fill="#E6007E"/>
+    <path d="M10 77 Q28 69 44 60 L48 68 Q31 77 13 85 Z" fill="#E6007E"/>
+    <path d="M16 87 L39 76 L43 83 L20 94 Z" fill="#00A859"/>
+  </g>
+
+  <!-- Bloco QUITERIANÓPOLIS PREFEITURA -->
+  <text x="82" y="36" font-family="Inter, Segoe UI, Arial Black, sans-serif" font-weight="900" font-size="25" letter-spacing="-0.5" fill="#2E0E68">QUITERIA</text>
+  <text x="82" y="59" font-family="Inter, Segoe UI, Arial Black, sans-serif" font-weight="900" font-size="25" letter-spacing="-0.5" fill="#2E0E68">NÓPOLIS</text>
+  <text x="83" y="77" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="600" font-size="14.5" letter-spacing="1.2" fill="#3E1C84">PREFEITURA</text>
+
+  <!-- Divisor 1 -->
+  <line x1="226" y1="16" x2="226" y2="80" stroke="#CBD5E1" stroke-width="2"/>
+
+  <!-- Bloco SECRETARIA DE ESPORTES -->
+  <text x="240" y="43" font-family="Inter, Segoe UI, Arial Black, sans-serif" font-weight="900" font-size="21" letter-spacing="-0.3" fill="#06286E">SECRETARIA</text>
+  <text x="240" y="69" font-family="Inter, Segoe UI, Arial Black, sans-serif" font-weight="900" font-size="21" letter-spacing="-0.3" fill="#0057D9">DE ESPORTES</text>
+
+  <!-- Divisor 2 -->
+  <line x1="402" y1="16" x2="402" y2="80" stroke="#CBD5E1" stroke-width="2"/>
+
+  <!-- Slogan Avançando juntos, cuidando de todos. -->
+  <text x="415" y="31" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="800" font-size="13.5" fill="#2E0E68">Avançando</text>
+  <text x="415" y="48" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="800" font-size="13.5" fill="#E5A800">juntos,</text>
+  <text x="415" y="64" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="800" font-size="13.5" fill="#E6007E">cuidando</text>
+  <text x="415" y="80" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="800" font-size="13.5" fill="#00A859">de todos.</text>
+</svg>

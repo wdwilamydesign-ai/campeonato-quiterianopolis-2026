@@ -1,0 +1,31 @@
+{
+  "name": "Campeonato Quiterianópolis - Administração",
+  "short_name": "Campeonato Admin",
+  "start_url": "/admin",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f4f7fc",
+  "theme_color": "#06286E",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "/assets/icons/app-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/icons/app-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    { "name": "Painel Geral", "url": "/admin" },
+    { "name": "Partidas e Ao Vivo", "url": "/admin/partidas" },
+    { "name": "Atletas", "url": "/admin/atletas" },
+    { "name": "Equipes", "url": "/admin/equipes" }
+  ],
+  "description": "Painel da Comissão Organizadora — Campeonato Municipal de Futebol de Quiterianópolis 2026"
+}

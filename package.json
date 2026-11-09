@@ -1,0 +1,12 @@
+{
+  "name": "campeonato-quiterianopolis-2026",
+  "version": "2.0.0",
+  "description": "Portal Oficial e Sistema Integrado do Campeonato Quiterianopolense de Futebol 2026 - Prefeitura de Quiterianópolis / Secretaria de Esportes",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "start": "node src/server.js"
+  }
+}
