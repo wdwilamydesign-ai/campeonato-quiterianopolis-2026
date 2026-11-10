@@ -49,12 +49,7 @@ function paginaLoginAdmin({ campeonato, csrfToken, flash }) {
       <button type="submit" class="btn btn-primary btn-block">⚙️ Acessar Painel Administrativo</button>
     </form>
 
-    <div class="mt-3 small" style="background:#f8fbff;border:1px dashed #cbd5e1;border-radius:12px;padding:10px 14px">
-      <strong style="color:var(--blue-deep)">🔑 Acesso inicial de prévia/configuração:</strong><br>
-      CPF: <code>000.000.000-00</code> • Senha: <code>admin2026</code>
-    </div>
-
-    <div class="mt-2 text-center small">
+    <div class="mt-3 text-center small">
       <a href="/" style="color:var(--blue);font-weight:800">← Voltar ao Portal Público</a>
     </div>
   </div>
