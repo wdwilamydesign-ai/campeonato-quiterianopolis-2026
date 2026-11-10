@@ -59,7 +59,6 @@ function paginaInicial(ctx) {
       <div class="container quiteria-hero-grid">
         <img class="hero-shield-3d" src="/assets/branding/escudo-campeonato-2026.png" alt="Logo Oficial ${esc(campeonato.nome)}">
         <div>
-          <span class="hero-kicker-badge">🏆 ${esc(campeonato.orgao)}</span>
           <h1>CAMPEONATO<br>QUITERIANOPOLENSE<br><span>DE FUTEBOL ${esc(campeonato.ano)}</span></h1>
           <p>Acompanhe em tempo real os 19 jogos oficiais no <strong>${esc(campeonato.estadio_padrao)}</strong>, tabelas das Chaves A, B, C e D, chaveamento das finais, artilharia, elencos e súmulas.</p>
           <div class="actions">
