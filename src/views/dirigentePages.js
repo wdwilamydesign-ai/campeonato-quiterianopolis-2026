@@ -39,7 +39,6 @@ function layoutDirigente({ titulo, campeonato, equipe = null, flash = null, aba 
         </span>
       </a>
       <div class="nav-right-tools">
-        <a class="mobile-preview-btn no-sim" href="/celular?rota=/dirigente">📱 <span class="mobile-preview-text">Prévia Mobile</span></a>
         <button type="button" class="btn btn-gold btn-sm" data-install-app>📲 <span class="mobile-preview-text">Instalar App</span></button>
         <a class="btn btn-light btn-sm" href="/">🌐 <span class="mobile-preview-text">Portal Público</span></a>
         ${equipe ? `<a class="btn btn-danger btn-sm" href="/dirigente/sair">Sair</a>` : ''}

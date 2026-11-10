@@ -354,9 +354,6 @@ function layoutPublico({ titulo, abaAtiva = 'inicio', campeonato, campeonatosAti
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>
           </a>
         ` : ''}
-        <a class="mobile-preview-btn no-sim" href="/celular" title="Testar versão Android e iPhone (iOS)">
-          <span>📱</span><span class="mobile-preview-text">Celular</span>
-        </a>
         <button type="button" class="btn btn-gold btn-xs" data-install-app>📲 <span class="mobile-preview-text">Instalar App</span></button>
         <a class="team-login-btn" href="/dirigente">
           <span class="team-login-text">Área da equipe</span>
@@ -409,7 +406,6 @@ function layoutPublico({ titulo, abaAtiva = 'inicio', campeonato, campeonatosAti
                   <span>👁</span><strong style="color:var(--blue-deep)">${Number(totalVisitas).toLocaleString('pt-BR')}</strong><span>acessos</span>
                 </div>
                 <a class="pill gold" href="/avaliacoes${divQuery}">★ Avaliar o portal</a>
-                <a class="pill no-sim" href="/celular">📱 Prévia Celular</a>
                 <a class="pill" href="/dirigente">🛡️ Área do dirigente</a>
                 <a class="pill" href="/admin">⚙️ Administração</a>
               </div>
@@ -490,7 +486,6 @@ function layoutAdmin({ titulo, subtitulo = '', secao = 'dashboard', campeonato, 
               </select>
             </form>
           ` : `<span class="pill gold mobile-preview-text">${esc(campeonato.divisao_rotulo)}</span>`}
-          <a class="mobile-preview-btn no-sim" href="/celular?rota=/admin">📱 <span class="mobile-preview-text">Prévia Mobile</span></a>
           <a class="btn btn-light btn-sm" href="/" target="_blank">🌐 <span class="mobile-preview-text">Portal Público</span></a>
           <a class="btn btn-danger btn-sm" href="/admin/sair">🚪 Sair</a>
         </div>
