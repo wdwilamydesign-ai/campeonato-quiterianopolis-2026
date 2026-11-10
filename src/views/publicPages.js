@@ -39,16 +39,26 @@ function paginaInicial(ctx) {
     const v = proxDestaque.visitante_id ? equipesMap[proxDestaque.visitante_id] : null;
     proxBoxHtml = `
       <a class="hero-next-box" href="/jogo/${proxDestaque.id}${divQuery}">
-        <small>${proxDestaque.status === 'ao_vivo' ? '🔴 ACONTECENDO AGORA' : `⚽ PRÓXIMO JOGO • JOGO ${String(proxDestaque.numero_jogo).padStart(2, '0')}`}</small>
-        <div class="hero-next-teams">
-          ${m?.escudo_url ? `<img src="${esc(m.escudo_url)}" alt="${esc(m.nome)}">` : ''}
-          <span>${esc(m ? m.nome : proxDestaque.mandante_placeholder)}</span>
-          <span style="color:var(--gold)">×</span>
-          <span>${esc(v ? v.nome : proxDestaque.visitante_placeholder)}</span>
-          ${v?.escudo_url ? `<img src="${esc(v.escudo_url)}" alt="${esc(v.nome)}">` : ''}
+        <div>
+          <span class="hero-next-badge">
+            ${proxDestaque.status === 'ao_vivo' ? '🔴 ACONTECENDO AGORA' : `⚽ PRÓXIMO JOGO • JOGO ${String(proxDestaque.numero_jogo).padStart(2, '0')}`}
+          </span>
         </div>
-        <div class="tiny" style="color:#dbeafe;font-weight:750">
-          ${esc(proxDestaque.data_jogo)} às ${esc(proxDestaque.hora_jogo)} • ${esc(proxDestaque.local)}
+        <div class="hero-next-teams">
+          <div class="hero-next-team-item">
+            ${m?.escudo_url ? `<img src="${esc(m.escudo_url)}" alt="${esc(m.nome)}">` : ''}
+            <span class="team-name">${esc(m ? m.nome : proxDestaque.mandante_placeholder)}</span>
+          </div>
+          <span class="hero-next-vs">×</span>
+          <div class="hero-next-team-item">
+            ${v?.escudo_url ? `<img src="${esc(v.escudo_url)}" alt="${esc(v.nome)}">` : ''}
+            <span class="team-name">${esc(v ? v.nome : proxDestaque.visitante_placeholder)}</span>
+          </div>
+        </div>
+        <div class="hero-next-meta">
+          <span>📅 ${esc(proxDestaque.data_jogo)} às ${esc(proxDestaque.hora_jogo)}</span>
+          <span class="meta-dot">•</span>
+          <span>📍 ${esc(proxDestaque.local)}</span>
         </div>
       </a>
     `;
