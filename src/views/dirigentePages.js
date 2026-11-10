@@ -237,29 +237,8 @@ function paginaLoginDirigente({ campeonato, csrfToken, flash, equipes = [], modo
         <hr style="border:0;border-top:1px solid var(--line);margin:20px 0">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px" class="small">
           <a href="/" style="color:var(--blue);font-weight:800">← Voltar ao Portal Público</a>
-          <a href="/admin/equipes" class="muted">Gerenciar Equipes na Comissão Organizadora →</a>
+          <a href="/admin/login" class="muted">Acesso Comissão / Admin →</a>
         </div>
-
-        ${equipes.length ? `
-          <details class="mt-3" style="background:#f8fbff;border:1px dashed #cbd5e1;border-radius:12px;padding:10px 14px">
-            <summary class="small" style="cursor:pointer;font-weight:800;color:var(--blue-deep)">🔑 Equipes já cadastradas e credenciais iniciais (${equipes.length})</summary>
-            <div class="tiny muted mt-1">Senha inicial padrão das equipes pré-cadastradas: <code>equipe2026</code> (ou a senha criada no momento do cadastro).</div>
-            <div class="table-wrap mt-1">
-              <table class="table" style="font-size:.78rem">
-                <thead><tr><th>Equipe</th><th>Chave</th><th>CPF Login</th></tr></thead>
-                <tbody>
-                  ${equipes.map(eq => `
-                    <tr>
-                      <td><strong>${esc(eq.nome)}</strong></td>
-                      <td>Chave ${esc(eq.chave)}</td>
-                      <td><code>${esc(formatarCpf(eq.dirigente_cpf))}</code></td>
-                    </tr>
-                  `).join('')}
-                </tbody>
-              </table>
-            </div>
-          </details>
-        ` : ''}
       </div>
     </div>
   `;

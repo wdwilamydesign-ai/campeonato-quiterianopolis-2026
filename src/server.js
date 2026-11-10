@@ -369,13 +369,11 @@ const server = http.createServer(async (req, res) => {
     if (pathname === '/dirigente/login' || pathname === '/dirigente/cadastro') {
       const { campeonato } = obterCampeonatoPublico(urlObj);
       if (req.method === 'GET') {
-        const equipes = db.prepare('SELECT id, nome, chave, dirigente_cpf FROM equipes WHERE campeonato_id = ? AND ativo = 1 ORDER BY chave, ordem_sorteio').all(campeonato.id);
         const modoInicial = (pathname === '/dirigente/cadastro' || urlObj.searchParams.get('modo') === 'cadastro') ? 'cadastro' : 'login';
         return enviarHtml(res, 200, dirigentePages.paginaLoginDirigente({
           campeonato,
           csrfToken: sessao.csrfToken,
           flash: consumirFlash(sessao),
-          equipes,
           modoInicial
         }));
       }
