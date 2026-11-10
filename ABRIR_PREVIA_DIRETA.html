@@ -180,13 +180,25 @@ select, .select, select option { color: #14243e !important; background-color: #f
 .public-top::before { content: ""; display: block; height: 6px; background: var(--gov-ribbon); }
 .public-nav {
   min-height: 64px; display: flex; flex-wrap: nowrap; align-items: center;
-  justify-content: space-between; gap: 12px; padding: 6px 0;
+  justify-content: space-between; gap: 14px; padding: 8px 0;
 }
-.brand { display: flex; align-items: center; gap: 10px; font-weight: 900; color: var(--blue-deep); flex-shrink: 0; min-width: 0; }
+@media (min-width: 960px) {
+  .public-nav {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 24px;
+    min-height: 76px;
+    padding: 10px 0;
+  }
+}
+.brand { display: flex; align-items: center; gap: 12px; font-weight: 900; color: var(--blue-deep); flex-shrink: 0; min-width: 0; text-decoration: none; }
 .brand-championship-shield {
-  width: 48px; height: 48px; object-fit: contain; display: block; flex-shrink: 0;
-  filter: drop-shadow(0 5px 10px rgba(6, 40, 110, 0.18));
+  width: 52px; height: 52px; object-fit: contain; display: block; flex-shrink: 0;
+  filter: drop-shadow(0 6px 14px rgba(6, 40, 110, 0.20));
+  transition: transform 0.2s ease;
 }
+.brand:hover .brand-championship-shield { transform: scale(1.04); }
 .brand-stack { min-width: 0; }
 .brand-stack small {
   display: block; font-size: 0.66rem; font-weight: 800; text-transform: uppercase;
@@ -194,12 +206,59 @@ select, .select, select option { color: #14243e !important; background-color: #f
 }
 .brand-stack strong { display: block; font-size: 0.96rem; color: var(--blue-deep); line-height: 1.12; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .brand-stack.brand-stack-3lines strong {
-  font-size: 0.76rem;
+  font-family: 'Lufga', sans-serif;
+  font-size: 0.86rem;
   font-weight: 900;
-  line-height: 1.1;
+  line-height: 1.12;
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--blue-deep);
+}
+.brand-stack .brand-year {
+  color: var(--cyan, #009fe3);
+}
+
+/* Centro Institucional: Prefeitura & Secretaria */
+.nav-center-gov {
+  display: none;
+}
+@media (min-width: 960px) {
+  .nav-center-gov {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 0 16px;
+  }
+  .prefeitura-nav-logo {
+    height: 44px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+  }
+  .nav-gov-stack {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.22;
+    border-left: 2px solid #cbd5e1;
+    padding-left: 12px;
+    text-align: left;
+  }
+  .nav-gov-stack strong {
+    font-family: 'Lufga', sans-serif;
+    font-size: 0.84rem;
+    font-weight: 850;
+    color: var(--blue-deep);
+    letter-spacing: 0.02em;
+  }
+  .nav-gov-stack span {
+    font-family: 'Lufga', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--muted);
+    font-style: italic;
+  }
 }
 
 /* Faixa Contínua de Menus Lado a Lado (Desktop, Android e iOS — NUNCA empilha) */
@@ -237,37 +296,68 @@ select, .select, select option { color: #14243e !important; background-color: #f
   background: var(--gold); color: var(--blue-deep);
 }
 
-.nav-right-tools { display: flex; flex-wrap: nowrap; align-items: center; gap: 8px; flex-shrink: 0; }
-.prefeitura-nav-logo { height: 38px; width: auto; object-fit: contain; display: block; }
-.mobile-preview-btn {
-  display: inline-flex; align-items: center; gap: 5px; padding: 8px 11px;
-  border-radius: 11px; background: #eef5ff; border: 1px solid #c9dcf8;
-  color: var(--blue-deep); font-weight: 850; font-size: 0.78rem; white-space: nowrap;
+.nav-right-tools {
+  display: flex; flex-wrap: nowrap; align-items: center; gap: 12px; flex-shrink: 0; justify-content: flex-end;
 }
-.mobile-preview-btn:hover { background: #dceaff; }
+.btn-install-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffd000 0%, #ffbe00 100%);
+  border: 1px solid #eab308;
+  color: var(--blue-deep);
+  font-family: 'Lufga', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 850;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(255, 208, 0, 0.35);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
+.btn-install-header:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(255, 208, 0, 0.45);
+}
+.btn-install-header:active {
+  transform: scale(0.97);
+}
+@media (max-width: 620px) {
+  .btn-install-header {
+    min-height: 38px;
+    padding: 6px 12px;
+    font-size: 0.78rem;
+  }
+}
 .public-youtube-link {
   width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%;
   color: #ff0000; background: #fff; border: 1px solid #f1d4d4;
-  box-shadow: 0 5px 14px rgba(180, 0, 0, 0.1); transition: transform 0.16s ease;
+  box-shadow: 0 4px 10px rgba(180, 0, 0, 0.08); transition: transform 0.18s ease;
 }
-.public-youtube-link svg { width: 22px; height: 22px; fill: currentColor; }
-.public-youtube-link:hover { transform: translateY(-1px); background: #fff5f5; }
+.public-youtube-link svg { width: 20px; height: 20px; fill: currentColor; }
+.public-youtube-link:hover { transform: translateY(-1px) scale(1.05); background: #fff5f5; }
 .team-login-btn {
   position: relative; z-index: 1; overflow: hidden;
   display: inline-flex; align-items: center; justify-content: center;
-  padding: 8px 14px; border-radius: 11px;
+  min-height: 42px;
+  padding: 8px 20px; border-radius: 999px;
   background: transparent !important;
-  color: #fff; font-weight: 850; font-size: 0.78rem; white-space: nowrap;
-  box-shadow: 0 6px 16px rgba(6, 40, 110, 0.18);
-  transition: transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+  color: #fff; font-family: 'Lufga', sans-serif; font-weight: 850; font-size: 0.86rem; white-space: nowrap;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(6, 40, 110, 0.25);
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
   will-change: transform;
 }
 .team-login-btn .team-login-text {
   position: relative; z-index: 2;
+  display: inline-flex; align-items: center; gap: 6px;
 }
 .team-login-btn::before {
   content: ""; position: absolute; z-index: 0;
-  left: 50%; top: 50%; width: 220px; height: 220px;
+  left: 50%; top: 50%; width: 340px; height: 340px;
   background: conic-gradient(
     from 0deg,
     #ffd000 0deg,
@@ -283,19 +373,19 @@ select, .select, select option { color: #14243e !important; background-color: #f
 }
 .team-login-btn::after {
   content: ""; position: absolute; z-index: 1;
-  inset: 1.8px; border-radius: 9.5px;
-  background: linear-gradient(135deg, #0057d9 0%, #06286e 60%, #083b8a 100%);
+  inset: 2px; border-radius: 999px;
+  background: linear-gradient(135deg, #06286e 0%, #0057d9 55%, #083b8a 100%);
   transition: background 0.3s ease;
 }
 .team-login-btn:hover {
-  transform: scale(1.08) rotate(-2.2deg);
-  box-shadow: 0 12px 26px rgba(0, 159, 227, 0.32), 0 0 14px rgba(255, 208, 0, 0.35);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 22px rgba(6, 40, 110, 0.35);
 }
 .team-login-btn:hover::before {
   animation-duration: 3.2s;
 }
 .team-login-btn:active {
-  transform: scale(0.98) rotate(0deg);
+  transform: scale(0.97);
 }
 @keyframes teamBorderSpin {
   from { transform: translate(-50%, -50%) rotate(0deg); }
@@ -1153,19 +1243,33 @@ html.is-standalone.is-ios .public-top { padding-top: env(safe-area-inset-top); }
 
       <header class="public-top">
         <div class="container public-nav">
+          <!-- 1. ESQUERDA: MARCA E TÍTULO DO CAMPEONATO -->
           <a class="brand" href="#inicio" data-go-tab="inicio">
             <img class="brand-championship-shield" src="./public/assets/branding/escudo-campeonato-2026.png" alt="Logo">
             <span class="brand-stack brand-stack-3lines">
-              <strong>CAMPEONATO<br>QUITERIANOPOLENSE<br>DE FUTEBOL 2026</strong>
+              <strong>CAMPEONATO<br>QUITERIANOPOLENSE<br>DE FUTEBOL <span class="brand-year">2026</span></strong>
             </span>
           </a>
-          <div class="nav-right-tools">
+
+          <!-- 2. CENTRO: CHANCELA INSTITUCIONAL (PREFEITURA & SECRETARIA) -->
+          <div class="nav-center-gov">
             <img class="prefeitura-nav-logo" src="./public/assets/branding/logo-prefeitura.svg" alt="Prefeitura de Quiterianópolis">
+            <div class="nav-gov-stack">
+              <strong>Secretaria Municipal de Esportes</strong>
+              <span>Avançando juntos, cuidando de todos.</span>
+            </div>
+          </div>
+
+          <!-- 3. DIREITA: FERRAMENTAS E AÇÕES NOBRES -->
+          <div class="nav-right-tools">
             <a class="public-youtube-link" href="https://www.youtube.com/@SeeLigaaTV" target="_blank" rel="noopener noreferrer" title="Transmissão pelo YouTube (@SeeLigaaTV)" aria-label="Transmissão pelo YouTube">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>
             </a>
+            <button type="button" class="btn-install-header" onclick="alert('Aplicativo pronto para instalação no seu navegador!')">
+              <span>📲</span> <strong>Instalar Aplicativo</strong>
+            </button>
             <a class="team-login-btn" href="#dirigente" data-go-tab="dirigente">
-              <span class="team-login-text">Área da equipe</span>
+              <span class="team-login-text">🛡️ Área da Equipe</span>
             </a>
           </div>
         </div>

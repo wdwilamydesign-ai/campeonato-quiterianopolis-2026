@@ -341,22 +341,35 @@ function layoutPublico({ titulo, abaAtiva = 'inicio', campeonato, campeonatosAti
   ` : ''}
   <header class="public-top">
     <div class="container public-nav">
+      <!-- 1. ESQUERDA: MARCA E TÍTULO DO CAMPEONATO -->
       <a class="brand" href="/${divQuery}">
         <img class="brand-championship-shield" src="/assets/branding/escudo-campeonato-2026.png" alt="Logo ${esc(campeonato.nome)}">
         <span class="brand-stack brand-stack-3lines">
-          <strong>CAMPEONATO<br>QUITERIANOPOLENSE<br>DE FUTEBOL ${esc(campeonato.ano || 2026)}</strong>
+          <strong>CAMPEONATO<br>QUITERIANOPOLENSE<br>DE FUTEBOL <span class="brand-year">${esc(campeonato.ano || 2026)}</span></strong>
         </span>
       </a>
+
+      <!-- 2. CENTRO: CHANCELA INSTITUCIONAL (PREFEITURA & SECRETARIA) -->
+      <div class="nav-center-gov">
+        <img class="prefeitura-nav-logo" src="/assets/branding/logo-prefeitura.svg" alt="Prefeitura de Quiterianópolis">
+        <div class="nav-gov-stack">
+          <strong>Secretaria Municipal de Esportes</strong>
+          <span>Avançando juntos, cuidando de todos.</span>
+        </div>
+      </div>
+
+      <!-- 3. DIREITA: FERRAMENTAS E AÇÕES NOBRES -->
       <div class="nav-right-tools">
-        <img class="prefeitura-nav-logo" src="/assets/branding/logo-prefeitura.svg" alt="Prefeitura de Quiterianópolis • Secretaria de Esportes">
         ${youtubeUrl ? `
           <a class="public-youtube-link" href="${esc(youtubeUrl)}" target="_blank" rel="noopener noreferrer" title="Transmissão pelo YouTube" aria-label="Transmissão pelo YouTube">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>
           </a>
         ` : ''}
-        <button type="button" class="btn btn-gold btn-xs" data-install-app>📲 <span class="mobile-preview-text">Instalar App</span></button>
+        <button type="button" class="btn-install-header" data-install-app>
+          <span>📲</span> <strong>Instalar Aplicativo</strong>
+        </button>
         <a class="team-login-btn" href="/dirigente">
-          <span class="team-login-text">Área da equipe</span>
+          <span class="team-login-text">🛡️ Área da Equipe</span>
         </a>
       </div>
     </div>
