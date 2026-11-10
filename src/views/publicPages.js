@@ -39,7 +39,7 @@ function paginaInicial(ctx) {
     const v = proxDestaque.visitante_id ? equipesMap[proxDestaque.visitante_id] : null;
     proxBoxHtml = `
       <a class="hero-next-box" href="/jogo/${proxDestaque.id}${divQuery}">
-        <div>
+        <div class="hero-next-header">
           <span class="hero-next-badge">
             ${proxDestaque.status === 'ao_vivo' ? '🔴 ACONTECENDO AGORA' : `⚽ PRÓXIMO JOGO • JOGO ${String(proxDestaque.numero_jogo).padStart(2, '0')}`}
           </span>
