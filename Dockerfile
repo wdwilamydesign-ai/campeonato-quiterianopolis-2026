@@ -3,6 +3,7 @@ FROM node:24-bookworm-slim
 WORKDIR /app
 
 COPY package.json ./
+COPY data ./data
 COPY public ./public
 COPY src ./src
 

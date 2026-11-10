@@ -1996,6 +1996,10 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
+try {
+  sincronizarTabelaCondicional(1);
+} catch (_) {}
+
 server.listen(PORT, () => {
   console.log(`✅ Portal Oficial Campeonato Quiterianopolense 2026 rodando em http://127.0.0.1:${PORT} e http://localhost:${PORT}`);
 });

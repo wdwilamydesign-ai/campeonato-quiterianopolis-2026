@@ -5,12 +5,20 @@ const fs = require('node:fs');
 const crypto = require('node:crypto');
 const { DatabaseSync } = require('node:sqlite');
 
+const SEED_DB = path.join(__dirname, '..', 'data', 'campeonato_quiterianopolis.sqlite');
 const DATA_DIR = process.env.DATA_DIR || process.env.RAILWAY_VOLUME_MOUNT_PATH || path.join(__dirname, '..', 'data');
 if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
 }
 
 const DB_PATH = path.join(DATA_DIR, 'campeonato_quiterianopolis.sqlite');
+if (!fs.existsSync(DB_PATH) && fs.existsSync(SEED_DB) && path.resolve(DB_PATH) !== path.resolve(SEED_DB)) {
+  try {
+    fs.copyFileSync(SEED_DB, DB_PATH);
+  } catch (e) {
+    console.error('Aviso ao copiar banco seed:', e);
+  }
+}
 const db = new DatabaseSync(DB_PATH);
 
 db.exec('PRAGMA journal_mode = WAL;');
@@ -326,6 +334,29 @@ function inicializarBanco() {
   `);
 
   popularDadosIniciais();
+
+  // Garantir restauração de partidas já realizadas caso ainda constem como agendadas
+  try {
+    const p1 = db.prepare('SELECT status, gols_mandante, gols_visitante FROM partidas WHERE numero_jogo = 1').get();
+    if (p1 && (p1.status === 'agendada' || p1.gols_mandante === null)) {
+      db.prepare(`
+        UPDATE partidas
+        SET status = 'encerrada', gols_mandante = 1, gols_visitante = 1, vencedor_definido_id = NULL, cronometro_rodando = 0
+        WHERE numero_jogo = 1
+      `).run();
+    }
+    const p2 = db.prepare('SELECT status, gols_mandante, gols_visitante FROM partidas WHERE numero_jogo = 2').get();
+    if (p2 && (p2.status === 'agendada' || p2.gols_mandante === null)) {
+      const roque = db.prepare('SELECT id FROM equipes WHERE nome LIKE "%Roque%" LIMIT 1').get();
+      db.prepare(`
+        UPDATE partidas
+        SET status = 'encerrada', gols_mandante = 3, gols_visitante = 1, vencedor_definido_id = ?, cronometro_rodando = 0
+        WHERE numero_jogo = 2
+      `).run(roque ? roque.id : 1);
+    }
+  } catch (err) {
+    console.error('Aviso ao sincronizar partidas realizadas:', err);
+  }
 }
 
 function popularDadosIniciais() {
