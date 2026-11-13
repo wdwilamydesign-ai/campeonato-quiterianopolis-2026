@@ -337,16 +337,16 @@ function inicializarBanco() {
 
   // Garantir restauração de partidas já realizadas caso ainda constem como agendadas
   try {
-    const p1 = db.prepare('SELECT status, gols_mandante, gols_visitante FROM partidas WHERE numero_jogo = 1').get();
-    if (p1 && (p1.status === 'agendada' || p1.gols_mandante === null)) {
+    const p1 = db.prepare('SELECT status, gols_mandante, gols_visitante, vencedor_definido_id FROM partidas WHERE numero_jogo = 1').get();
+    if (p1 && p1.status === 'agendada' && p1.gols_mandante === null) {
       db.prepare(`
         UPDATE partidas
-        SET status = 'encerrada', gols_mandante = 1, gols_visitante = 1, vencedor_definido_id = NULL, cronometro_rodando = 0
+        SET status = 'encerrada', gols_mandante = 1, gols_visitante = 1, cronometro_rodando = 0
         WHERE numero_jogo = 1
       `).run();
     }
-    const p2 = db.prepare('SELECT status, gols_mandante, gols_visitante FROM partidas WHERE numero_jogo = 2').get();
-    if (p2 && (p2.status === 'agendada' || p2.gols_mandante === null)) {
+    const p2 = db.prepare('SELECT status, gols_mandante, gols_visitante, vencedor_definido_id FROM partidas WHERE numero_jogo = 2').get();
+    if (p2 && p2.status === 'agendada' && p2.gols_mandante === null) {
       const roque = db.prepare('SELECT id FROM equipes WHERE nome LIKE "%Roque%" LIMIT 1').get();
       db.prepare(`
         UPDATE partidas

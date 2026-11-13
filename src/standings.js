@@ -212,7 +212,7 @@ function sincronizarTabelaCondicional(campeonatoId, { forcarQuartas = false } = 
       const ref = porNumero[p.origem_mandante_ref];
       const { vencedorId, perdedorId } = obterVencedorPerdedorPartida(ref);
       const novoId = p.origem_mandante_tipo === 'vencedor_jogo' ? vencedorId : perdedorId;
-      if (novoId !== p.mandante_id) {
+      if (novoId && novoId !== p.mandante_id) {
         updMandante.run(novoId, p.id);
         p.mandante_id = novoId;
       }
@@ -230,7 +230,7 @@ function sincronizarTabelaCondicional(campeonatoId, { forcarQuartas = false } = 
       const ref = porNumero[p.origem_visitante_ref];
       const { vencedorId, perdedorId } = obterVencedorPerdedorPartida(ref);
       const novoId = p.origem_visitante_tipo === 'vencedor_jogo' ? vencedorId : perdedorId;
-      if (novoId !== p.visitante_id) {
+      if (novoId && novoId !== p.visitante_id) {
         updVisitante.run(novoId, p.id);
         p.visitante_id = novoId;
       }
