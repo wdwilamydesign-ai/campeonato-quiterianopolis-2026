@@ -39,15 +39,19 @@ function paginaLoginAdmin({ campeonato, csrfToken, flash }) {
     <form method="post" action="/admin/login" class="grid">
       <input type="hidden" name="_csrf" value="${esc(csrfToken)}">
       <div class="form-group">
-        <label for="cpf-admin">CPF do Administrador / Mesário</label>
+        <label for="cpf-admin">Identificador de Acesso (CPF cadastrado)</label>
         <input id="cpf-admin" class="input" type="text" name="cpf" data-mask="cpf" placeholder="000.000.000-00" required autocomplete="username">
       </div>
       <div class="form-group">
-        <label for="senha-admin">Senha</label>
+        <label for="senha-admin">Senha de Acesso</label>
         <input id="senha-admin" class="input" type="password" name="senha" placeholder="Digite sua senha" required autocomplete="current-password">
       </div>
       <button type="submit" class="btn btn-primary btn-block">⚙️ Acessar Painel Administrativo</button>
     </form>
+
+    <div class="mt-3 text-center tiny muted" style="line-height:1.4">
+      🔒 Ambiente operacional esportivo exclusivo da comissão organizadora e mesários do Campeonato Quiterianopolense de Futebol 2026. Este sistema não coleta nem solicita dados bancários ou senhas pessoais de cidadãos.
+    </div>
 
     <div class="mt-3 text-center small">
       <a href="/" style="color:var(--blue);font-weight:800">← Voltar ao Portal Público</a>

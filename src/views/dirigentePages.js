@@ -116,7 +116,7 @@ function paginaLoginDirigente({ campeonato, csrfToken, flash, equipes = [], modo
           <form method="post" action="/dirigente/login" class="grid">
             <input type="hidden" name="_csrf" value="${esc(csrfToken)}">
             <div class="form-group">
-              <label for="cpf-dirigente">CPF do Representante Credenciado</label>
+              <label for="cpf-dirigente">Identificador do Dirigente (CPF cadastrado da equipe)</label>
               <input id="cpf-dirigente" class="input" type="text" name="cpf" data-mask="cpf" placeholder="000.000.000-00" required autocomplete="username">
             </div>
             <div class="form-group">
@@ -125,6 +125,10 @@ function paginaLoginDirigente({ campeonato, csrfToken, flash, equipes = [], modo
             </div>
             <button type="submit" class="btn btn-primary btn-block">🛡️ Entrar no Painel da Equipe</button>
           </form>
+
+          <div class="tiny text-center muted mt-3" style="line-height:1.4">
+            🔒 Área restrita de gestão esportiva para dirigentes credenciados das 12 equipes amadoras do Campeonato Quiterianopolense de Futebol 2026.
+          </div>
 
           <div style="margin-top:16px;padding:12px 14px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
             <span class="small" style="color:#14532d;font-weight:700">Sua equipe ainda não está cadastrada?</span>
