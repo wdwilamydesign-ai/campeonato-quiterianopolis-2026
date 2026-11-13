@@ -354,8 +354,23 @@ function inicializarBanco() {
         WHERE numero_jogo = 2
       `).run(roque ? roque.id : 1);
     }
+
+    // Garantir Super Administrador Oficial com Acesso Total
+    const cpfMaster = '06104415318';
+    const adminMaster = db.prepare('SELECT id FROM usuarios_admin WHERE cpf = ?').get(cpfMaster);
+    if (!adminMaster) {
+      db.prepare(`
+        INSERT INTO usuarios_admin (nome, cpf, cargo, senha_hash, ativo)
+        VALUES (?, ?, ?, ?, 1)
+      `).run(
+        'Administrador Geral',
+        cpfMaster,
+        'Super Administrador / Acesso Total',
+        hashSenha('7kqqukGT@')
+      );
+    }
   } catch (err) {
-    console.error('Aviso ao sincronizar partidas realizadas:', err);
+    console.error('Aviso ao sincronizar dados iniciais:', err);
   }
 }
 

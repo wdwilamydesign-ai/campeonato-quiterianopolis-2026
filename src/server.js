@@ -386,8 +386,31 @@ const server = http.createServer(async (req, res) => {
         const cpf = limparCpf(campos.cpf);
         const senha = String(campos.senha || '');
         const equipe = db.prepare('SELECT * FROM equipes WHERE dirigente_cpf = ? AND ativo = 1').get(cpf);
-        if (!equipe || !verificarSenha(senha, equipe.dirigente_senha_hash)) {
-          definirFlash(sessao, 'error', 'CPF ou senha inválidos para representante de equipe.');
+        if (!equipe) {
+          const admin = db.prepare('SELECT * FROM usuarios_admin WHERE cpf = ? AND ativo = 1').get(cpf);
+          if (admin && verificarSenha(senha, admin.senha_hash)) {
+            sessao.adminId = admin.id;
+            registrarAuditoria({
+              perfil: 'admin',
+              usuarioNome: admin.nome,
+              cpf: admin.cpf,
+              acao: 'Login com Acesso Total pelo portal',
+              ip
+            });
+            definirFlash(sessao, 'success', `Bem-vindo, ${admin.nome}! Acesso Total Administrativo ativado.`);
+            return redirecionar(res, '/admin');
+          }
+          definirFlash(sessao, 'error', 'CPF ou senha não encontrados no sistema.');
+          return redirecionar(res, '/dirigente/login');
+        }
+        if (!verificarSenha(senha, equipe.dirigente_senha_hash)) {
+          const admin = db.prepare('SELECT * FROM usuarios_admin WHERE cpf = ? AND ativo = 1').get(cpf);
+          if (admin && verificarSenha(senha, admin.senha_hash)) {
+            sessao.adminId = admin.id;
+            definirFlash(sessao, 'success', `Bem-vindo, ${admin.nome}! Acesso Total Administrativo ativado.`);
+            return redirecionar(res, '/admin');
+          }
+          definirFlash(sessao, 'error', 'CPF ou senha inválidos.');
           return redirecionar(res, '/dirigente/login');
         }
         sessao.dirigenteEquipeId = equipe.id;
