@@ -354,3 +354,46 @@ function togglePasswordVisibility(button) {
   input.focus();
 }
 window.togglePasswordVisibility = togglePasswordVisibility;
+
+// Alternador de Jogos da Rodada Dupla no Hero
+function switchHeroMatch(index, btn) {
+  const box = document.getElementById('hero-next-box-carousel');
+  if (!box) return;
+  const tabs = box.querySelectorAll('.hero-tab-pill');
+  tabs.forEach((b, i) => {
+    const active = i === index;
+    b.classList.toggle('active', active);
+    b.setAttribute('aria-selected', active ? 'true' : 'false');
+  });
+
+  const p0 = document.getElementById('hero-panel-0');
+  const p1 = document.getElementById('hero-panel-1');
+  if (index === 0) {
+    if (p0) p0.style.display = 'flex';
+    if (p1) p1.style.display = 'none';
+  } else {
+    if (p0) p0.style.display = 'none';
+    if (p1) p1.style.display = 'flex';
+  }
+}
+window.switchHeroMatch = switchHeroMatch;
+
+// Rotação automática suave dos jogos do dia no Hero a cada 6s (pausa se o usuário passar o mouse/clicar)
+document.addEventListener('DOMContentLoaded', () => {
+  const heroBox = document.getElementById('hero-next-box-carousel');
+  if (!heroBox) return;
+  const tabs = heroBox.querySelectorAll('.hero-tab-pill');
+  if (tabs.length < 2) return;
+
+  let currentIdx = 0;
+  let userInteracted = false;
+
+  heroBox.addEventListener('mouseenter', () => { userInteracted = true; });
+  heroBox.addEventListener('click', () => { userInteracted = true; });
+
+  setInterval(() => {
+    if (userInteracted) return;
+    currentIdx = (currentIdx + 1) % tabs.length;
+    switchHeroMatch(currentIdx, tabs[currentIdx]);
+  }, 6000);
+});

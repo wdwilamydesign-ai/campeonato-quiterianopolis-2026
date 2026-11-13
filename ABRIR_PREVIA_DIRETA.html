@@ -673,108 +673,64 @@ select, .select, select option { color: #14243e !important; background-color: #f
   letter-spacing: 0.06em; color: var(--gold); font-weight: 900; margin-bottom: 8px;
 }
 
-/* Card de Rodada Dupla no Hero */
-.hero-next-box.hero-next-box-double {
-  padding: 18px 20px !important;
-}
-.hero-double-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-  margin: 12px 0 14px;
-}
-.hero-double-card {
-  display: block;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 16px;
-  padding: 10px 14px;
-  text-decoration: none;
-  transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
-.hero-double-card:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 208, 0, 0.75);
-  transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.32);
-}
-.hero-double-card:active {
-  transform: scale(0.98);
-}
-.hero-double-tag {
-  display: flex;
+/* Card de Rodada Dupla no Hero com Switcher Perfeito */
+.hero-switcher-tabs {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.32);
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 208, 0, 0.40);
+  margin-bottom: 2px;
+}
+.hero-tab-pill {
+  border: 0;
+  background: transparent;
+  color: #dbeafe;
   font-family: 'Lufga', sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 850;
+  padding: 6px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+.hero-tab-pill:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+}
+.hero-tab-pill.active {
+  background: linear-gradient(135deg, #ffd000 0%, #ffbe00 100%);
+  color: var(--blue-deep, #06286e);
+  box-shadow: 0 4px 14px rgba(255, 208, 0, 0.45);
+  transform: scale(1.02);
+}
+.hero-match-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-decoration: none;
+  animation: heroPanelFade 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes heroPanelFade {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-panel-subbadge {
+  font-family: 'Lufga', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 900;
   color: #ffe066;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 6px;
-}
-.hero-double-teams {
-  display: grid;
-  grid-template-columns: 1fr 32px 1fr;
-  align-items: center;
-  justify-items: center;
-  gap: 8px;
-  width: 100%;
-}
-.hero-double-team {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  width: 100%;
-}
-.hero-double-team img {
-  width: 42px;
-  height: 42px;
-  object-fit: contain;
-  background: #ffffff;
-  border-radius: 11px;
-  padding: 3px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
-  margin-bottom: 4px;
-  display: block;
-}
-.hero-double-team .shield-mini-ph {
-  width: 42px;
-  height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 11px;
-  font-size: 1.2rem;
-  margin-bottom: 4px;
-}
-.hero-double-team .team-name {
-  font-family: 'Lufga', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 850;
-  color: #ffffff;
-  line-height: 1.15;
-  text-align: center;
-  word-break: break-word;
-}
-.hero-double-vs {
-  font-family: 'Lufga', sans-serif;
-  font-size: 1.3rem;
-  font-weight: 950;
-  color: var(--gold);
-  height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.06em;
+  margin-top: 6px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* KPIs */
@@ -1518,54 +1474,59 @@ html.is-standalone.is-ios .public-top { padding-top: env(safe-area-inset-top); }
           </div>
         </div>
         
-        <div class="hero-next-box hero-next-box-double">
+        <div class="hero-next-box hero-next-box-carousel" id="hero-next-box-carousel">
           <div class="hero-next-header">
-            <span class="hero-next-badge">⚽ PRÓXIMOS JOGOS • 14/11/2026</span>
+            <div class="hero-switcher-tabs" role="tablist">
+              <button type="button" class="hero-tab-pill active" onclick="switchHeroMatch(0, this)" role="tab" aria-selected="true">
+                <span>JOGO 04</span> • <strong>17:00</strong>
+              </button>
+              <button type="button" class="hero-tab-pill" onclick="switchHeroMatch(1, this)" role="tab" aria-selected="false">
+                <span>JOGO 05</span> • <strong>18:45</strong>
+              </button>
+            </div>
           </div>
 
-          <div class="hero-double-grid">
-            <!-- CONFRONTO 1: JOGO 04 -->
-            <a class="hero-double-card" href="#jogos" data-go-tab="jogos">
-              <div class="hero-double-tag">
-                <span>JOGO 04</span> • <span>⏰ 17:00</span> • <span>CHAVE D</span>
+          <!-- JOGO 1: 17:00 -->
+          <a class="hero-match-panel active" id="hero-panel-0" href="#jogos" data-go-tab="jogos">
+            <div class="hero-panel-subbadge">⚽ SÁBADO, 14/11 • CHAVE D</div>
+            <div class="hero-next-teams">
+              <div class="hero-next-team-item">
+                <img src="./public/assets/uploads/equipes/besouro.png" alt="Besouro">
+                <span class="team-name">Besouro</span>
               </div>
-              <div class="hero-double-teams">
-                <div class="hero-double-team">
-                  <img src="./public/assets/uploads/equipes/besouro.png" alt="Besouro">
-                  <span class="team-name">Besouro</span>
-                </div>
-                <span class="hero-double-vs">×</span>
-                <div class="hero-double-team">
-                  <img src="./public/assets/uploads/equipes/caeiras.png" alt="Caeiras">
-                  <span class="team-name">Caeiras</span>
-                </div>
+              <span class="hero-next-vs">×</span>
+              <div class="hero-next-team-item">
+                <img src="./public/assets/uploads/equipes/caeiras.png" alt="Caeiras">
+                <span class="team-name">Caeiras</span>
               </div>
-            </a>
+            </div>
+            <div class="hero-next-meta">
+              <span>📅 14/11 às 17:00</span>
+              <span class="meta-dot">•</span>
+              <span>📍 Estádio Tualdão</span>
+            </div>
+          </a>
 
-            <!-- CONFRONTO 2: JOGO 05 -->
-            <a class="hero-double-card" href="#jogos" data-go-tab="jogos">
-              <div class="hero-double-tag">
-                <span>JOGO 05</span> • <span>⏰ 18:45</span> • <span>CHAVE C</span>
+          <!-- JOGO 2: 18:45 -->
+          <a class="hero-match-panel" id="hero-panel-1" href="#jogos" data-go-tab="jogos" style="display:none">
+            <div class="hero-panel-subbadge">⚽ SÁBADO, 14/11 • CHAVE C</div>
+            <div class="hero-next-teams">
+              <div class="hero-next-team-item">
+                <img src="./public/assets/uploads/equipes/cq-quiterianopolis.png" alt="CQ Quiterianópolis">
+                <span class="team-name">CQ Quiterianópolis</span>
               </div>
-              <div class="hero-double-teams">
-                <div class="hero-double-team">
-                  <img src="./public/assets/uploads/equipes/cq-quiterianopolis.png" alt="CQ Quiterianópolis">
-                  <span class="team-name">CQ Quiterianópolis</span>
-                </div>
-                <span class="hero-double-vs">×</span>
-                <div class="hero-double-team">
-                  <img src="./public/assets/uploads/equipes/cealeza.png" alt="Cealeza">
-                  <span class="team-name">Cealeza</span>
-                </div>
+              <span class="hero-next-vs">×</span>
+              <div class="hero-next-team-item">
+                <img src="./public/assets/uploads/equipes/cealeza.png" alt="Cealeza">
+                <span class="team-name">Cealeza</span>
               </div>
-            </a>
-          </div>
-
-          <div class="hero-next-meta">
-            <span>📅 Sábado, 14/11</span>
-            <span class="meta-dot">•</span>
-            <span>📍 Estádio Tualdão</span>
-          </div>
+            </div>
+            <div class="hero-next-meta">
+              <span>📅 14/11 às 18:45</span>
+              <span class="meta-dot">•</span>
+              <span>📍 Estádio Tualdão</span>
+            </div>
+          </a>
         </div>
     
       </div>
@@ -5056,6 +5017,27 @@ html.is-standalone.is-ios .public-top { padding-top: env(safe-area-inset-top); }
 
       button.innerHTML = isPassword ? svgEyeOff : svgEyeOpen;
       input.focus();
+    }
+
+    function switchHeroMatch(index, btn) {
+      const box = document.getElementById('hero-next-box-carousel');
+      if (!box) return;
+      const tabs = box.querySelectorAll('.hero-tab-pill');
+      tabs.forEach((b, i) => {
+        const active = i === index;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+
+      const p0 = document.getElementById('hero-panel-0');
+      const p1 = document.getElementById('hero-panel-1');
+      if (index === 0) {
+        if (p0) p0.style.display = 'flex';
+        if (p1) p1.style.display = 'none';
+      } else {
+        if (p0) p0.style.display = 'none';
+        if (p1) p1.style.display = 'flex';
+      }
     }
   </script>
 </body>

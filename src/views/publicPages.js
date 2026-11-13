@@ -67,7 +67,7 @@ function paginaInicial(ctx) {
     const jogosData = proximos.filter(p => p.data_jogo === dataProx);
 
     if (jogosData.length >= 2) {
-      // RODADA DUPLA (ex: DIA 14 - Jogo 04 às 17h00 e Jogo 05 às 18h45)
+      // RODADA DUPLA COM SWITCHER HARMONIOSO (Mantém proporção idêntica e perfeita do card)
       const j1 = jogosData[0];
       const j2 = jogosData[1];
       const m1 = j1.mandante_id ? equipesMap[j1.mandante_id] : null;
@@ -76,56 +76,59 @@ function paginaInicial(ctx) {
       const v2 = j2.visitante_id ? equipesMap[j2.visitante_id] : null;
 
       proxBoxHtml = `
-        <div class="hero-next-box hero-next-box-double">
+        <div class="hero-next-box hero-next-box-carousel" id="hero-next-box-carousel">
           <div class="hero-next-header">
-            <span class="hero-next-badge">
-              ⚽ PRÓXIMOS JOGOS • ${esc(dataProx)}
-            </span>
+            <div class="hero-switcher-tabs" role="tablist">
+              <button type="button" class="hero-tab-pill active" onclick="switchHeroMatch(0, this)" role="tab" aria-selected="true">
+                <span>JOGO ${String(j1.numero_jogo).padStart(2, '0')}</span> • <strong>${esc(j1.hora_jogo)}</strong>
+              </button>
+              <button type="button" class="hero-tab-pill" onclick="switchHeroMatch(1, this)" role="tab" aria-selected="false">
+                <span>JOGO ${String(j2.numero_jogo).padStart(2, '0')}</span> • <strong>${esc(j2.hora_jogo)}</strong>
+              </button>
+            </div>
           </div>
 
-          <div class="hero-double-grid">
-            <!-- CONFRONTO 1 -->
-            <a class="hero-double-card" href="/jogo/${j1.id}${divQuery}">
-              <div class="hero-double-tag">
-                <span>JOGO ${String(j1.numero_jogo).padStart(2, '0')}</span> • <span>⏰ ${esc(j1.hora_jogo)}</span> • <span>${esc(j1.chave ? 'CHAVE ' + j1.chave : j1.fase)}</span>
+          <!-- JOGO 1: 17:00 -->
+          <a class="hero-match-panel active" id="hero-panel-0" href="/jogo/${j1.id}${divQuery}">
+            <div class="hero-panel-subbadge">⚽ SÁBADO, ${esc(dataProx)} • ${esc(j1.chave ? 'CHAVE ' + j1.chave : j1.fase)}</div>
+            <div class="hero-next-teams">
+              <div class="hero-next-team-item">
+                ${m1?.escudo_url ? `<img src="${esc(m1.escudo_url)}" alt="${esc(m1.nome)}">` : '<div class="shield-mini-ph">⚽</div>'}
+                <span class="team-name">${esc(m1 ? m1.nome : j1.mandante_placeholder || 'A definir')}</span>
               </div>
-              <div class="hero-double-teams">
-                <div class="hero-double-team">
-                  ${m1?.escudo_url ? `<img src="${esc(m1.escudo_url)}" alt="${esc(m1.nome)}">` : '<div class="shield-mini-ph">⚽</div>'}
-                  <span class="team-name">${esc(m1 ? m1.nome : j1.mandante_placeholder || 'A definir')}</span>
-                </div>
-                <span class="hero-double-vs">×</span>
-                <div class="hero-double-team">
-                  ${v1?.escudo_url ? `<img src="${esc(v1.escudo_url)}" alt="${esc(v1.nome)}">` : '<div class="shield-mini-ph">⚽</div>'}
-                  <span class="team-name">${esc(v1 ? v1.nome : j1.visitante_placeholder || 'A definir')}</span>
-                </div>
+              <span class="hero-next-vs">×</span>
+              <div class="hero-next-team-item">
+                ${v1?.escudo_url ? `<img src="${esc(v1.escudo_url)}" alt="${esc(v1.nome)}">` : '<div class="shield-mini-ph">⚽</div>'}
+                <span class="team-name">${esc(v1 ? v1.nome : j1.visitante_placeholder || 'A definir')}</span>
               </div>
-            </a>
+            </div>
+            <div class="hero-next-meta">
+              <span>📅 ${esc(dataProx)} às ${esc(j1.hora_jogo)}</span>
+              <span class="meta-dot">•</span>
+              <span>📍 ${esc(j1.local || campeonato.estadio_padrao)}</span>
+            </div>
+          </a>
 
-            <!-- CONFRONTO 2 -->
-            <a class="hero-double-card" href="/jogo/${j2.id}${divQuery}">
-              <div class="hero-double-tag">
-                <span>JOGO ${String(j2.numero_jogo).padStart(2, '0')}</span> • <span>⏰ ${esc(j2.hora_jogo)}</span> • <span>${esc(j2.chave ? 'CHAVE ' + j2.chave : j2.fase)}</span>
+          <!-- JOGO 2: 18:45 -->
+          <a class="hero-match-panel" id="hero-panel-1" href="/jogo/${j2.id}${divQuery}" style="display:none">
+            <div class="hero-panel-subbadge">⚽ SÁBADO, ${esc(dataProx)} • ${esc(j2.chave ? 'CHAVE ' + j2.chave : j2.fase)}</div>
+            <div class="hero-next-teams">
+              <div class="hero-next-team-item">
+                ${m2?.escudo_url ? `<img src="${esc(m2.escudo_url)}" alt="${esc(m2.nome)}">` : '<div class="shield-mini-ph">⚽</div>'}
+                <span class="team-name">${esc(m2 ? m2.nome : j2.mandante_placeholder || 'A definir')}</span>
               </div>
-              <div class="hero-double-teams">
-                <div class="hero-double-team">
-                  ${m2?.escudo_url ? `<img src="${esc(m2.escudo_url)}" alt="${esc(m2.nome)}">` : '<div class="shield-mini-ph">⚽</div>'}
-                  <span class="team-name">${esc(m2 ? m2.nome : j2.mandante_placeholder || 'A definir')}</span>
-                </div>
-                <span class="hero-double-vs">×</span>
-                <div class="hero-double-team">
-                  ${v2?.escudo_url ? `<img src="${esc(v2.escudo_url)}" alt="${esc(v2.nome)}">` : '<div class="shield-mini-ph">⚽</div>'}
-                  <span class="team-name">${esc(v2 ? v2.nome : j2.visitante_placeholder || 'A definir')}</span>
-                </div>
+              <span class="hero-next-vs">×</span>
+              <div class="hero-next-team-item">
+                ${v2?.escudo_url ? `<img src="${esc(v2.escudo_url)}" alt="${esc(v2.nome)}">` : '<div class="shield-mini-ph">⚽</div>'}
+                <span class="team-name">${esc(v2 ? v2.nome : j2.visitante_placeholder || 'A definir')}</span>
               </div>
-            </a>
-          </div>
-
-          <div class="hero-next-meta">
-            <span>📅 ${esc(dataProx)}</span>
-            <span class="meta-dot">•</span>
-            <span>📍 ${esc(j1.local || campeonato.estadio_padrao)}</span>
-          </div>
+            </div>
+            <div class="hero-next-meta">
+              <span>📅 ${esc(dataProx)} às ${esc(j2.hora_jogo)}</span>
+              <span class="meta-dot">•</span>
+              <span>📍 ${esc(j2.local || campeonato.estadio_padrao)}</span>
+            </div>
+          </a>
         </div>
       `;
     } else {
