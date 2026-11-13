@@ -7,6 +7,7 @@ const {
   renderCronometro,
   renderBadgeEscudo,
   renderFlash,
+  renderCampoSenha,
   layoutAdmin
 } = require('./helpers');
 const { formatarCpf } = require('../db');
@@ -44,7 +45,7 @@ function paginaLoginAdmin({ campeonato, csrfToken, flash }) {
       </div>
       <div class="form-group">
         <label for="senha-admin">Senha de Acesso</label>
-        <input id="senha-admin" class="input" type="password" name="senha" placeholder="Digite sua senha" required autocomplete="current-password">
+        ${renderCampoSenha({ id: 'senha-admin', name: 'senha', placeholder: 'Digite sua senha', required: true, autocomplete: 'current-password' })}
       </div>
       <button type="submit" class="btn btn-primary btn-block">⚙️ Acessar Painel Administrativo</button>
     </form>
@@ -790,7 +791,7 @@ function paginaEquipesAdmin(ctx) {
             <div class="form-group"><label>Nome do Dirigente</label><input class="input" name="dirigente_nome" value="${esc(equipeEditando.dirigente_nome || '')}"></div>
             <div class="form-group"><label>CPF de Login do Dirigente</label><input class="input" name="dirigente_cpf" data-mask="cpf" value="${esc(formatarCpf(equipeEditando.dirigente_cpf))}"></div>
             <div class="form-group"><label>Telefone / WhatsApp</label><input class="input" name="dirigente_telefone" data-mask="phone" value="${esc(equipeEditando.dirigente_telefone || '')}"></div>
-            <div class="form-group"><label>Redefinir Senha (opcional)</label><input class="input" type="password" name="nova_senha" placeholder="Deixe vazio p/ manter"></div>
+            <div class="form-group"><label>Redefinir Senha (opcional)</label>${renderCampoSenha({ name: 'nova_senha', placeholder: 'Deixe vazio p/ manter', required: false, minlength: 4, autocomplete: 'new-password' })}</div>
           </div>
           <div class="grid grid-3">
             <div class="form-group">
@@ -1502,8 +1503,8 @@ function paginaConfiguracoesAdmin(ctx) {
       <h3 class="card-title">🔐 Alterar Minha Senha de Administrador</h3>
       <form method="post" action="/admin/configuracoes/senha" class="grid grid-3" style="align-items:flex-end">
         <input type="hidden" name="_csrf" value="${esc(csrfToken)}">
-        <div class="form-group"><label>Senha Atual *</label><input class="input" type="password" name="senha_atual" required></div>
-        <div class="form-group"><label>Nova Senha (mín. 6 dígitos) *</label><input class="input" type="password" name="nova_senha" minlength="6" required></div>
+        <div class="form-group"><label>Senha Atual *</label>${renderCampoSenha({ name: 'senha_atual', placeholder: 'Sua senha atual', required: true, autocomplete: 'current-password' })}</div>
+        <div class="form-group"><label>Nova Senha (mín. 6 dígitos) *</label>${renderCampoSenha({ name: 'nova_senha', placeholder: 'Mínimo 6 dígitos', required: true, minlength: 6, autocomplete: 'new-password' })}</div>
         <div><button type="submit" class="btn btn-outline btn-block">Atualizar Senha Admin</button></div>
       </form>
     </section>

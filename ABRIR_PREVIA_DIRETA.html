@@ -148,6 +148,45 @@ label { font-size: 0.84rem; font-weight: 800; color: #334663; }
 select, .select, select option { color: #14243e !important; background-color: #fff !important; color-scheme: light; }
 .textarea { min-height: 120px; resize: vertical; line-height: 1.55; }
 
+/* Campo de Senha com Alternância de Visibilidade */
+.password-field-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.password-field-wrapper .input {
+  width: 100%;
+  padding-right: 44px !important;
+}
+.btn-toggle-password {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: 8px 10px;
+  border-radius: 9px;
+  color: #64748b;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: color 0.15s ease, background-color 0.15s ease;
+  user-select: none;
+  z-index: 2;
+}
+.btn-toggle-password:hover {
+  color: var(--blue-deep, #06286e);
+  background: rgba(6, 40, 110, 0.08);
+}
+.btn-toggle-password:focus-visible {
+  outline: 2px solid var(--blue, #0057d9);
+  outline-offset: 1px;
+}
+
 .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
 .table { width: 100%; border-collapse: collapse; background: #fff; }
 .table th, .table td { padding: 11px 12px; border-bottom: 1px solid var(--line); text-align: left; font-size: 0.88rem; }
@@ -4618,7 +4657,12 @@ html.is-standalone.is-ios .public-top { padding-top: env(safe-area-inset-top); }
           </div>
           <div class="form-group">
             <label for="senha-dirigente">Senha de Acesso</label>
-            <input id="senha-dirigente" class="input" type="password" name="senha" placeholder="Digite sua senha" required autocomplete="current-password">
+            <div class="password-field-wrapper">
+              <input id="senha-dirigente" class="input" type="password" name="senha" placeholder="Digite sua senha" required autocomplete="current-password">
+              <button type="button" class="btn-toggle-password" onclick="togglePasswordVisibility(this)" aria-label="Ver senha" title="Ver senha" tabindex="-1">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              </button>
+            </div>
           </div>
           <button type="submit" class="btn btn-primary btn-block">🛡️ Entrar no Painel da Equipe</button>
         </form>
@@ -4797,6 +4841,25 @@ html.is-standalone.is-ios .public-top { padding-top: env(safe-area-inset-top); }
         });
       });
     });
+
+    function togglePasswordVisibility(button) {
+      if (!button) return;
+      const wrapper = button.closest('.password-field-wrapper') || button.parentElement;
+      if (!wrapper) return;
+      const input = wrapper.querySelector('input');
+      if (!input) return;
+
+      const isPassword = input.type === 'password';
+      input.type = isPassword ? 'text' : 'password';
+      button.setAttribute('aria-label', isPassword ? 'Ocultar senha' : 'Ver senha');
+      button.setAttribute('title', isPassword ? 'Ocultar senha' : 'Ver senha');
+
+      const svgEyeOpen = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+      const svgEyeOff = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>';
+
+      button.innerHTML = isPassword ? svgEyeOff : svgEyeOpen;
+      input.focus();
+    }
   </script>
 </body>
 </html>

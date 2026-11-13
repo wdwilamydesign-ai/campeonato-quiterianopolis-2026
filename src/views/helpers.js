@@ -189,6 +189,18 @@ function renderModalInstalacaoMobile(nomeApp = 'Futebol 2026') {
   `;
 }
 
+function renderCampoSenha({ id = '', name = 'senha', placeholder = 'Digite sua senha', required = true, autocomplete = 'current-password', minlength = null, valor = '', extraClasses = '' } = {}) {
+  const svgEyeOpen = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>`;
+  return `
+    <div class="password-field-wrapper">
+      <input ${id ? `id="${esc(id)}"` : ''} class="input ${extraClasses}" type="password" name="${esc(name)}" placeholder="${esc(placeholder)}" ${required ? 'required' : ''} ${minlength ? `minlength="${minlength}"` : ''} autocomplete="${esc(autocomplete)}" value="${esc(valor)}">
+      <button type="button" class="btn-toggle-password" onclick="togglePasswordVisibility(this)" aria-label="Ver senha" title="Ver senha" tabindex="-1">
+        ${svgEyeOpen}
+      </button>
+    </div>
+  `;
+}
+
 function layoutPublico({ titulo, abaAtiva = 'inicio', campeonato, campeonatosAtivos = [], totalVisitas = 1, flash = null, autoRefresh = 0, conteudo }) {
   const divQuery = campeonatosAtivos.length > 1 ? `?divisao=${campeonato.id}` : '';
   const youtubeUrl = (campeonato.youtube_url || 'https://www.youtube.com/@SeeLigaaTV').trim();
@@ -552,6 +564,7 @@ module.exports = {
   renderCardJogo,
   renderFlash,
   renderModalInstalacaoMobile,
+  renderCampoSenha,
   layoutPublico,
   layoutAdmin
 };

@@ -5,7 +5,8 @@ const {
   renderBadgeEscudo,
   renderCardJogo,
   renderFlash,
-  renderModalInstalacaoMobile
+  renderModalInstalacaoMobile,
+  renderCampoSenha
 } = require('./helpers');
 const { formatarCpf } = require('../db');
 
@@ -121,7 +122,7 @@ function paginaLoginDirigente({ campeonato, csrfToken, flash, equipes = [], modo
             </div>
             <div class="form-group">
               <label for="senha-dirigente">Senha de Acesso</label>
-              <input id="senha-dirigente" class="input" type="password" name="senha" placeholder="Digite sua senha" required autocomplete="current-password">
+              ${renderCampoSenha({ id: 'senha-dirigente', name: 'senha', placeholder: 'Digite sua senha', required: true, autocomplete: 'current-password' })}
             </div>
             <button type="submit" class="btn btn-primary btn-block">🛡️ Entrar no Painel da Equipe</button>
           </form>
@@ -199,7 +200,7 @@ function paginaLoginDirigente({ campeonato, csrfToken, flash, equipes = [], modo
               </div>
               <div class="form-group">
                 <label>Criar Senha de Acesso *</label>
-                <input class="input" type="password" name="senha" minlength="4" placeholder="Crie uma senha (mín. 4 dígitos)" required autocomplete="new-password">
+                ${renderCampoSenha({ id: 'senha-cadastro', name: 'senha', placeholder: 'Crie uma senha (mín. 4 dígitos)', required: true, minlength: 4, autocomplete: 'new-password' })}
               </div>
             </div>
 
@@ -410,7 +411,7 @@ function paginaPainelDirigente(ctx) {
               <div class="grid grid-2">
                 <div class="form-group">
                   <label>Nova Senha (deixe em branco para manter)</label>
-                  <input class="input" type="password" name="nova_senha" minlength="4" placeholder="Mínimo 4 caracteres">
+                  ${renderCampoSenha({ name: 'nova_senha', placeholder: 'Mínimo 4 caracteres', required: false, minlength: 4, autocomplete: 'new-password' })}
                 </div>
                 <div class="form-group" style="display:flex;align-items:flex-end">
                   <button type="submit" class="btn btn-primary btn-block">💾 Salvar Dados da Equipe e Dirigente</button>
@@ -776,7 +777,7 @@ function paginaPainelDirigente(ctx) {
                   <input type="hidden" name="documento_id" value="${doc.id}">
                   <div style="flex:1;min-width:220px">
                     <label class="tiny" style="display:block;font-weight:800;margin-bottom:4px">Confirme sua senha de dirigente para assinar em nome de ${esc(equipe.nome)}:</label>
-                    <input class="input" type="password" name="senha_confirmacao" required placeholder="Sua senha de acesso">
+                    ${renderCampoSenha({ name: 'senha_confirmacao', placeholder: 'Sua senha de acesso', required: true, autocomplete: 'current-password' })}
                   </div>
                   <button type="submit" class="btn btn-gold">✍️ Assinar Documento Oficial</button>
                 </form>
