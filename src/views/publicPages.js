@@ -22,9 +22,8 @@ function paginaInicial(ctx) {
   const divQuery = campeonatosAtivos.length > 1 ? `?divisao=${campeonato.id}` : '';
 
   const aoVivo = partidas.filter(p => p.status === 'ao_vivo');
-  const proximos = partidas.filter(p => p.status === 'agendada').slice(0, 6);
+  const proximos = partidas.filter(p => p.status === 'agendada');
   const encerrados = [...partidas.filter(p => p.status === 'encerrada')].reverse().slice(0, 6);
-  const proxDestaque = aoVivo[0] || proximos[0] || null;
 
   const campeao = campeonato.campeao_equipe_id ? equipesMap[campeonato.campeao_equipe_id] : null;
   const vice = campeonato.vice_equipe_id ? equipesMap[campeonato.vice_equipe_id] : null;
@@ -34,34 +33,132 @@ function paginaInicial(ctx) {
   const somaGeralPremiacao = totalIncentivos + totalPremios;
 
   let proxBoxHtml = '';
-  if (proxDestaque) {
-    const m = proxDestaque.mandante_id ? equipesMap[proxDestaque.mandante_id] : null;
-    const v = proxDestaque.visitante_id ? equipesMap[proxDestaque.visitante_id] : null;
+  if (aoVivo.length) {
+    const p = aoVivo[0];
+    const m = p.mandante_id ? equipesMap[p.mandante_id] : null;
+    const v = p.visitante_id ? equipesMap[p.visitante_id] : null;
     proxBoxHtml = `
-      <a class="hero-next-box" href="/jogo/${proxDestaque.id}${divQuery}">
+      <a class="hero-next-box" href="/jogo/${p.id}${divQuery}">
         <div class="hero-next-header">
-          <span class="hero-next-badge">
-            ${proxDestaque.status === 'ao_vivo' ? '🔴 ACONTECENDO AGORA' : `⚽ PRÓXIMO JOGO • JOGO ${String(proxDestaque.numero_jogo).padStart(2, '0')}`}
+          <span class="hero-next-badge" style="background:#dc2626;color:#fff;border-color:#fca5a5">
+            🔴 ACONTECENDO AGORA • JOGO ${String(p.numero_jogo).padStart(2, '0')}
           </span>
         </div>
         <div class="hero-next-teams">
           <div class="hero-next-team-item">
             ${m?.escudo_url ? `<img src="${esc(m.escudo_url)}" alt="${esc(m.nome)}">` : ''}
-            <span class="team-name">${esc(m ? m.nome : proxDestaque.mandante_placeholder)}</span>
+            <span class="team-name">${esc(m ? m.nome : p.mandante_placeholder)}</span>
           </div>
-          <span class="hero-next-vs">×</span>
+          <span class="hero-next-vs">${Number(p.gols_mandante ?? 0)} × ${Number(p.gols_visitante ?? 0)}</span>
           <div class="hero-next-team-item">
             ${v?.escudo_url ? `<img src="${esc(v.escudo_url)}" alt="${esc(v.nome)}">` : ''}
-            <span class="team-name">${esc(v ? v.nome : proxDestaque.visitante_placeholder)}</span>
+            <span class="team-name">${esc(v ? v.nome : p.visitante_placeholder)}</span>
           </div>
         </div>
         <div class="hero-next-meta">
-          <span>📅 ${esc(proxDestaque.data_jogo)} às ${esc(proxDestaque.hora_jogo)}</span>
+          <span>📍 ${esc(p.local || campeonato.estadio_padrao)}</span>
           <span class="meta-dot">•</span>
-          <span>📍 ${esc(proxDestaque.local)}</span>
+          <span>Acompanhe o lance a lance</span>
         </div>
       </a>
     `;
+  } else if (proximos.length) {
+    const dataProx = proximos[0].data_jogo;
+    const jogosData = proximos.filter(p => p.data_jogo === dataProx);
+
+    if (jogosData.length >= 2) {
+      // RODADA DUPLA (ex: DIA 14 - Jogo 04 às 17h00 e Jogo 05 às 18h45)
+      const j1 = jogosData[0];
+      const j2 = jogosData[1];
+      const m1 = j1.mandante_id ? equipesMap[j1.mandante_id] : null;
+      const v1 = j1.visitante_id ? equipesMap[j1.visitante_id] : null;
+      const m2 = j2.mandante_id ? equipesMap[j2.mandante_id] : null;
+      const v2 = j2.visitante_id ? equipesMap[j2.visitante_id] : null;
+
+      proxBoxHtml = `
+        <div class="hero-next-box hero-next-box-double">
+          <div class="hero-next-header">
+            <span class="hero-next-badge">
+              ⚽ PRÓXIMOS JOGOS • ${esc(dataProx)}
+            </span>
+          </div>
+
+          <div class="hero-double-grid">
+            <!-- CONFRONTO 1 -->
+            <a class="hero-double-card" href="/jogo/${j1.id}${divQuery}">
+              <div class="hero-double-tag">
+                <span>JOGO ${String(j1.numero_jogo).padStart(2, '0')}</span> • <span>⏰ ${esc(j1.hora_jogo)}</span> • <span>${esc(j1.chave ? 'CHAVE ' + j1.chave : j1.fase)}</span>
+              </div>
+              <div class="hero-double-teams">
+                <div class="hero-double-team">
+                  ${m1?.escudo_url ? `<img src="${esc(m1.escudo_url)}" alt="${esc(m1.nome)}">` : '<div class="shield-mini-ph">⚽</div>'}
+                  <span class="team-name">${esc(m1 ? m1.nome : j1.mandante_placeholder || 'A definir')}</span>
+                </div>
+                <span class="hero-double-vs">×</span>
+                <div class="hero-double-team">
+                  ${v1?.escudo_url ? `<img src="${esc(v1.escudo_url)}" alt="${esc(v1.nome)}">` : '<div class="shield-mini-ph">⚽</div>'}
+                  <span class="team-name">${esc(v1 ? v1.nome : j1.visitante_placeholder || 'A definir')}</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- CONFRONTO 2 -->
+            <a class="hero-double-card" href="/jogo/${j2.id}${divQuery}">
+              <div class="hero-double-tag">
+                <span>JOGO ${String(j2.numero_jogo).padStart(2, '0')}</span> • <span>⏰ ${esc(j2.hora_jogo)}</span> • <span>${esc(j2.chave ? 'CHAVE ' + j2.chave : j2.fase)}</span>
+              </div>
+              <div class="hero-double-teams">
+                <div class="hero-double-team">
+                  ${m2?.escudo_url ? `<img src="${esc(m2.escudo_url)}" alt="${esc(m2.nome)}">` : '<div class="shield-mini-ph">⚽</div>'}
+                  <span class="team-name">${esc(m2 ? m2.nome : j2.mandante_placeholder || 'A definir')}</span>
+                </div>
+                <span class="hero-double-vs">×</span>
+                <div class="hero-double-team">
+                  ${v2?.escudo_url ? `<img src="${esc(v2.escudo_url)}" alt="${esc(v2.nome)}">` : '<div class="shield-mini-ph">⚽</div>'}
+                  <span class="team-name">${esc(v2 ? v2.nome : j2.visitante_placeholder || 'A definir')}</span>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="hero-next-meta">
+            <span>📅 ${esc(dataProx)}</span>
+            <span class="meta-dot">•</span>
+            <span>📍 ${esc(j1.local || campeonato.estadio_padrao)}</span>
+          </div>
+        </div>
+      `;
+    } else {
+      // JOGO ÚNICO
+      const proxDestaque = proximos[0];
+      const m = proxDestaque.mandante_id ? equipesMap[proxDestaque.mandante_id] : null;
+      const v = proxDestaque.visitante_id ? equipesMap[proxDestaque.visitante_id] : null;
+      proxBoxHtml = `
+        <a class="hero-next-box" href="/jogo/${proxDestaque.id}${divQuery}">
+          <div class="hero-next-header">
+            <span class="hero-next-badge">
+              ⚽ PRÓXIMO JOGO • JOGO ${String(proxDestaque.numero_jogo).padStart(2, '0')}
+            </span>
+          </div>
+          <div class="hero-next-teams">
+            <div class="hero-next-team-item">
+              ${m?.escudo_url ? `<img src="${esc(m.escudo_url)}" alt="${esc(m.nome)}">` : ''}
+              <span class="team-name">${esc(m ? m.nome : proxDestaque.mandante_placeholder)}</span>
+            </div>
+            <span class="hero-next-vs">×</span>
+            <div class="hero-next-team-item">
+              ${v?.escudo_url ? `<img src="${esc(v.escudo_url)}" alt="${esc(v.nome)}">` : ''}
+              <span class="team-name">${esc(v ? v.nome : proxDestaque.visitante_placeholder)}</span>
+            </div>
+          </div>
+          <div class="hero-next-meta">
+            <span>📅 ${esc(proxDestaque.data_jogo)} às ${esc(proxDestaque.hora_jogo)}</span>
+            <span class="meta-dot">•</span>
+            <span>📍 ${esc(proxDestaque.local)}</span>
+          </div>
+        </a>
+      `;
+    }
   }
 
   const conteudo = `

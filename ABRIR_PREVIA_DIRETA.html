@@ -673,6 +673,110 @@ select, .select, select option { color: #14243e !important; background-color: #f
   letter-spacing: 0.06em; color: var(--gold); font-weight: 900; margin-bottom: 8px;
 }
 
+/* Card de Rodada Dupla no Hero */
+.hero-next-box.hero-next-box-double {
+  padding: 18px 20px !important;
+}
+.hero-double-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin: 12px 0 14px;
+}
+.hero-double-card {
+  display: block;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 16px;
+  padding: 10px 14px;
+  text-decoration: none;
+  transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.hero-double-card:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 208, 0, 0.75);
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.32);
+}
+.hero-double-card:active {
+  transform: scale(0.98);
+}
+.hero-double-tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: 'Lufga', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 850;
+  color: #ffe066;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+.hero-double-teams {
+  display: grid;
+  grid-template-columns: 1fr 32px 1fr;
+  align-items: center;
+  justify-items: center;
+  gap: 8px;
+  width: 100%;
+}
+.hero-double-team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+.hero-double-team img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  background: #ffffff;
+  border-radius: 11px;
+  padding: 3px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  margin-bottom: 4px;
+  display: block;
+}
+.hero-double-team .shield-mini-ph {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 11px;
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+}
+.hero-double-team .team-name {
+  font-family: 'Lufga', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 850;
+  color: #ffffff;
+  line-height: 1.15;
+  text-align: center;
+  word-break: break-word;
+}
+.hero-double-vs {
+  font-family: 'Lufga', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 950;
+  color: var(--gold);
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
 /* KPIs */
 .kpi { position: relative; overflow: hidden; padding: 18px; }
 .kpi::after {
@@ -1414,27 +1518,55 @@ html.is-standalone.is-ios .public-top { padding-top: env(safe-area-inset-top); }
           </div>
         </div>
         
-      <a class="hero-next-box" href="/jogo/1">
-        <div class="hero-next-header">
-          <span class="hero-next-badge">⚽ PRÓXIMO JOGO • JOGO 01</span>
-        </div>
-        <div class="hero-next-teams">
-          <div class="hero-next-team-item">
-            <img src="./public/assets/uploads/equipes/sao-miguel.png" alt="São Miguel">
-            <span class="team-name">São Miguel</span>
+        <div class="hero-next-box hero-next-box-double">
+          <div class="hero-next-header">
+            <span class="hero-next-badge">⚽ PRÓXIMOS JOGOS • 14/11/2026</span>
           </div>
-          <span class="hero-next-vs">×</span>
-          <div class="hero-next-team-item">
-            <img src="./public/assets/uploads/equipes/cealeza.png" alt="Cealeza">
-            <span class="team-name">Cealeza</span>
+
+          <div class="hero-double-grid">
+            <!-- CONFRONTO 1: JOGO 04 -->
+            <a class="hero-double-card" href="#jogos" data-go-tab="jogos">
+              <div class="hero-double-tag">
+                <span>JOGO 04</span> • <span>⏰ 17:00</span> • <span>CHAVE D</span>
+              </div>
+              <div class="hero-double-teams">
+                <div class="hero-double-team">
+                  <img src="./public/assets/uploads/equipes/besouro.png" alt="Besouro">
+                  <span class="team-name">Besouro</span>
+                </div>
+                <span class="hero-double-vs">×</span>
+                <div class="hero-double-team">
+                  <img src="./public/assets/uploads/equipes/caeiras.png" alt="Caeiras">
+                  <span class="team-name">Caeiras</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- CONFRONTO 2: JOGO 05 -->
+            <a class="hero-double-card" href="#jogos" data-go-tab="jogos">
+              <div class="hero-double-tag">
+                <span>JOGO 05</span> • <span>⏰ 18:45</span> • <span>CHAVE C</span>
+              </div>
+              <div class="hero-double-teams">
+                <div class="hero-double-team">
+                  <img src="./public/assets/uploads/equipes/cq-quiterianopolis.png" alt="CQ Quiterianópolis">
+                  <span class="team-name">CQ Quiterianópolis</span>
+                </div>
+                <span class="hero-double-vs">×</span>
+                <div class="hero-double-team">
+                  <img src="./public/assets/uploads/equipes/cealeza.png" alt="Cealeza">
+                  <span class="team-name">Cealeza</span>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="hero-next-meta">
+            <span>📅 Sábado, 14/11</span>
+            <span class="meta-dot">•</span>
+            <span>📍 Estádio Tualdão</span>
           </div>
         </div>
-        <div class="hero-next-meta">
-          <span>📅 07/11/2026 às 17:00</span>
-          <span class="meta-dot">•</span>
-          <span>📍 Estádio Tualdão</span>
-        </div>
-      </a>
     
       </div>
     </section>
