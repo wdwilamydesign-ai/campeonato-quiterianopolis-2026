@@ -363,12 +363,74 @@ select, .select, select option { color: #14243e !important; background-color: #f
 .btn-install-header:active {
   transform: scale(0.97);
 }
-@media (max-width: 620px) {
+@media (max-width: 959px) {
   .btn-install-header {
-    min-height: 38px;
-    padding: 6px 12px;
-    font-size: 0.78rem;
+    display: none !important;
   }
+  .nav-right-tools {
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .team-login-btn {
+    min-height: 38px;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+  }
+  .public-youtube-link {
+    width: 36px;
+    height: 36px;
+  }
+  .public-youtube-link svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+@media (max-width: 380px) {
+  .brand {
+    gap: 8px;
+  }
+  .brand-championship-shield {
+    width: 44px;
+    height: 44px;
+  }
+  .brand-stack.brand-stack-3lines strong {
+    font-size: 0.72rem;
+    line-height: 1.1;
+  }
+  .team-login-btn {
+    padding: 5px 10px;
+    font-size: 0.74rem;
+  }
+  .team-login-btn .team-login-text {
+    gap: 4px;
+  }
+}
+
+/* Chip de Instalação na Barra de Menus (Mobile e Desktop) */
+.nav-install-chip {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffd000 0%, #ffbe00 100%);
+  border: 1px solid #eab308;
+  color: var(--blue-deep, #06286e);
+  font-family: 'Lufga', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 850;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(255, 208, 0, 0.28);
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+.nav-install-chip:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 4px 12px rgba(255, 208, 0, 0.4);
+}
+.nav-install-chip:active {
+  transform: scale(0.97);
 }
 .public-youtube-link {
   width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%;
@@ -1315,6 +1377,9 @@ html.is-standalone.is-ios .public-top { padding-top: env(safe-area-inset-top); }
         <!-- MENUS TODOS EM SEQUÊNCIA HORIZONTAL (LADO A LADO) -->
         <div class="seq-menu-strip">
           <nav class="container public-links" aria-label="Menu principal em sequência">
+            <button type="button" class="nav-install-chip" onclick="alert('Aplicativo pronto para instalação no seu navegador!')" title="Instalar aplicativo oficial no celular">
+              <span>📲</span> Instalar App
+            </button>
             <a class="active" href="#inicio" data-go-tab="inicio">Início</a>
             <a href="#jogos" data-go-tab="jogos">Jogos</a>
             <a href="#classificacao" data-go-tab="classificacao">Classificação</a>

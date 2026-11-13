@@ -387,6 +387,9 @@ function layoutPublico({ titulo, abaAtiva = 'inicio', campeonato, campeonatosAti
     </div>
     <div class="seq-menu-strip">
       <nav class="container public-links" aria-label="Menu principal em sequência">
+        <button type="button" class="nav-install-chip" data-install-app title="Instalar aplicativo oficial no celular">
+          <span>📲</span> Instalar App
+        </button>
         <a class="${abaAtiva === 'inicio' ? 'active' : ''}" href="/${divQuery}">Início</a>
         <a class="${abaAtiva === 'jogos' ? 'active' : ''}" href="/jogos${divQuery}">Jogos</a>
         <a class="${abaAtiva === 'classificacao' ? 'active' : ''}" href="/classificacao${divQuery}">Classificação</a>
@@ -430,6 +433,7 @@ function layoutPublico({ titulo, abaAtiva = 'inicio', campeonato, campeonatosAti
                 <div class="footer-visit-counter" title="Acessos diários únicos registrados no portal">
                   <span>👁</span><strong style="color:var(--blue-deep)">${Number(totalVisitas).toLocaleString('pt-BR')}</strong><span>acessos</span>
                 </div>
+                <button type="button" class="pill gold" data-install-app style="border:0;cursor:pointer;font-weight:850">📲 Instalar App</button>
                 <a class="pill gold" href="/avaliacoes${divQuery}">★ Avaliar o portal</a>
                 <a class="pill" href="/dirigente">🛡️ Área do dirigente</a>
                 <a class="pill" href="/admin">⚙️ Administração</a>
